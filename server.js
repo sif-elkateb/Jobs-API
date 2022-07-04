@@ -3,6 +3,7 @@ require('express-async-errors');
 const express=require('express');
 const { StatusCodes } = require('http-status-codes');
 const morgan=require('morgan');
+const authenticateUser = require('./middleware/auth');
 const errorHandlerMiddleware = require('./middleware/error-handler');
 const notFoundHandler = require('./middleware/not-found');
 const authRouter = require('./routes/auth');
@@ -45,7 +46,7 @@ app.get('/',(req,res)=>{
 })
 
 app.use('/api/v1/auth',authRouter)
-app.use('/api/v1/jobs',jobRouter)
+app.use('/api/v1/jobs',authenticateUser,jobRouter)
 
 
 

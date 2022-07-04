@@ -3,7 +3,7 @@ const { StatusCodes } = require("http-status-codes")
 
 
 const getAllJobs=async(req,res,next)=>{
-    res.status(StatusCodes.OK).json({msg:'got all jobs'})
+    res.status(StatusCodes.OK).json(req.user)
 }
 const addJob=async(req,res,next)=>{
     res.status(StatusCodes.OK).json({msg:'added  job'})

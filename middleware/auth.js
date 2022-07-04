@@ -1,4 +1,5 @@
 const jwt=require('jsonwebtoken');
+const { AuthenticationError } = require('../errors');
 
 
 
@@ -7,18 +8,24 @@ const authenticateUser=(req,res,next)=>{
     const {authorization}=req.headers;
 
     if(!authorization||!authorization.startsWith('Bearer ')){
-        throw new authenticateUser('no token provided')
+        throw new AuthenticationError('no token provided')
     }
     try{
         const token=authorization.split(' ')[1];
         const decoded=jwt.verify(token,process.env.SECRET_KEY);
 
-        req.user={userName:decoded.name,userId:decoded.userId}
+        const {userName,userId}=decoded;
+
+        req.user={userName,userId};
+
+        next();
         
 
     }
     catch(err){
-        throw new authenticateUser('invalid token')
+        throw new AuthenticationError('invalid token')
     }
 
 }
+
+module.exports=authenticateUser;
