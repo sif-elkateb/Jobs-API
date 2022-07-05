@@ -15,8 +15,14 @@ const getAllUsers=async(req,res,next)=>{
 
 
 const registerUser=async(req,res,next)=>{
+    
+    const {name,email,password}=req.body;
 
-    const user=await UserModel.create(req.body);
+    if(!name||!email||!password){
+        throw new BadRequestError('name, email and password must all be provided in registration')
+    }
+
+    const user=await UserModel.create({name,email,password});
 
     const token=user.createJWT();
     res.status(StatusCodes.CREATED).json({userName:user.name,token})
