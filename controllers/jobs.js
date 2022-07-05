@@ -38,9 +38,9 @@ const deleteJob=async(req,res,next)=>{
 const updateJob=async(req,res,next)=>{
     const {user:{userId},params:{id:jobId}, body:{company,position,status}}=req;
 
-    if(company===''||position===''){
-        throw new BadRequestError('company or position can not be empty');
-    }
+    // if(company===''||position===''){
+    //     throw new BadRequestError('company or position can not be empty');
+    // }
 
     const job=await JobModel.findOneAndUpdate({_id:jobId,createdBy:userId},{company,position,status},{new:true,runValidators:true});
 
