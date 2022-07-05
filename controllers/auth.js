@@ -11,6 +11,9 @@ const getAllUsers=async(req,res,next)=>{
     res.status(StatusCodes.OK).json(users);
 }
 
+
+
+
 const registerUser=async(req,res,next)=>{
 
     const user=await UserModel.create(req.body);
@@ -38,7 +41,7 @@ const loginUser=async(req,res,next)=>{
     if(!temp){
         throw new AuthenticationError('invalid credentials')
     }
-    
+
 
     const token=user.createJWT();
     res.status(StatusCodes.CREATED).json({userName:user.name,token})

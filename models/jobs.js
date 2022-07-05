@@ -2,7 +2,7 @@ const mongoose =require('mongoose');
 
 
 
-const JobSchema=({
+const JobSchema=mongoose.Schema({
     company:{
         type:String,
         required:[true,'the company name must be provided'],
@@ -26,7 +26,9 @@ const JobSchema=({
         ref:'User',
         required:[true,'the User must be provided']
     }
-},{timestamps:true})
+},{
+    timestamps:true
+});
 
 
 const JobModel=mongoose.model('Job',JobSchema);
